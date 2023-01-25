@@ -40,7 +40,6 @@ kubectl apply -f kube-yaml/challenge-ingress.yaml
 
 # Adicionando hosts em /etc/hosts
 echo -e "$(minikube ip)\tapp.prova" | sudo tee -a /etc/hosts
-echo -e "$(minikube ip)\tkibana.prova" | sudo tee -a /etc/hosts
 
 # Adicionando helm repo elastic
 helm repo add elastic https://helm.elastic.co
