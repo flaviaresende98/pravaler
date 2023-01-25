@@ -1,0 +1,56 @@
+Descubra a porta que a aplicação WEB está rodando e acesse via curl :D
+
+root@0fdb34cfb332:/etc# netstat -tunl
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+tcp6       0      0 :::1337                 :::*                    LISTEN
+
+
+root@0fdb34cfb332:/# curl localhost:1337
+
+
+Show ;D Agora pegue o código que está na URI /code
+
+root@0fdb34cfb332:~# curl http://localhost:1337/code
+
+Legal! o código é NDIK
+Ele está codificado de maneira simples, você precisa transformar ele em plaintext :D
+Acesse /check/<coloque aqui o código que você descobriu>	
+
+
+curl localhost:80/check/42
+
+
+Muito bem, você conseguiu e estamos felizes por isso :D :D
+Agora acesse a URI /nicejob com o header X-OrigemDaVida: 42
+
+curl localhost:80/nicejob -H "X-OrigemDaVida:42"
+
+1) A partir da app https://github.com/PRAVALER/simpleapp-python
+
+  * Crie um Dockerfile
+  * Envie a imagem para o dockerhub
+
+2) A partir da imagem criada, escreva os seguintes yamls para o kubernetes:
+
+  * Service(simpleapp-svc.yaml
+  * Configmap(simpleapp-cm.yaml)
+  * Ingress(simpleapp-ingress.yaml): Este deve ser feito com o NGINX-Ingress com as seguintes configurações:
+    - Host: app.prova
+
+Obs.:
+
+  * Você pode utilizar o MiniKube para o teste do setup, escreva um README.md de como aplicar as configurações, ou se preferir faça um script (bash, python, etc..) e descreva como usa-lo
+
+  * Tudo deve estar em um repositório no GitHub a ser enviado como resultado :D
+
+  * Será um plus se você fizer um código terraform para configurar um GKE no Google Cloud
+
+
+
+Envie o resultado (seu repositório) do desafio para daniel.faria@pravaler.com.br
+
+
+Imagem: https://hub.docker.com/layers/flaviapeixoto/app-prova/0.0.1/images/sha256-3e3ee3ff2b1dcff51c429870ad94fbbfc1186f01a1c13d2214d7fcbcfe918a99?context=repo
+
+
