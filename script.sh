@@ -1,11 +1,7 @@
-# Esboço do shell script
-
-# Atenção:
-#	O arquivo possui algumas anotações e alguns comandos só deveriam ser executados uma vez!
-#	Não excute-o diretamente sem revisá-lo!
+#!/bin/bash
 
 # Pré-requisitos:
-#       Utilizar um usuário sudoer
+#       Utilizar um usuário sudo
 #	Instalação do Docker: https://docs.docker.com/engine/install/centos/
 #	Manage Docker as a non-root user: https://docs.docker.com/engine/install/linux-postinstall/
 
@@ -49,29 +45,7 @@ echo -e "$(minikube ip)\tkibana.prova" | sudo tee -a /etc/hosts
 # Adicionando helm repo elastic
 helm repo add elastic https://helm.elastic.co
 
-# Instalando Elasticsearch 7.13.1 - https://artifacthub.io/packages/helm/elastic/elasticsearch
-helm install elasticsearch --version 7.13.1 elastic/elasticsearch --namespace prova -f helm-values/elasticsearch.yaml
-
-# Instalando Kibana 7.13.1 - https://artifacthub.io/packages/helm/elastic/kibana
-helm install kibana --version 7.13.1 elastic/kibana --namespace prova -f helm-values/kibana.yaml
-
-# Instalando Fluentd 3.2.0 - https://artifacthub.io/packages/helm/kokuwa/fluentd-elasticsearch
-helm repo add kokuwa https://kokuwaio.github.io/helm-charts
-helm install fluentd --version 11.12.0 kokuwa/fluentd-elasticsearch --namespace prova -f helm-values/fluentd.yaml
-
-# Instalando Prometheus 2.26.0 - https://artifacthub.io/packages/helm/prometheus-community/prometheus
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/prometheus --version 14.1.1 --namespace prova -f helm-values/prometheus.yaml
-
 # Visualizando recursos
 sleep 90
 #kubectl get pod,service,deployment,ingress,daemonset -A | grep -vP '^(default|kube)'
 watch -n 1 minikube kubectl -- get pod,service,deployment,ingress,daemonset -n prova
-
-###############################################
-# ANOTAÇÕES
-###############################################
-
-# Sobre Elasticsearch, Fluentd, Kibana: https://coralogix.com/blog/kubernetes-logging-with-elasticsearch-fluentd-and-kibana/
-# No Kibana, usar filtro "kubernetes.container_name: simpleapp" ou "kubernetes.container_name.keyword: simpleapp"
-
