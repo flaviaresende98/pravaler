@@ -4,15 +4,12 @@ metadata:
   name: simpleapp-ingress
   namespace: prova
 spec:
+  ingressClassName: nginx
   rules:
   - host: app.prova
     http:
       paths:
-      - pathType: Prefix
-        path: /
+      - path: /
         backend:
-          service:
-            name: simpleapp-svc
-            port:
-              number: 80
-  
+          serviceName: simpleapp-svc
+          servicePort: 80
